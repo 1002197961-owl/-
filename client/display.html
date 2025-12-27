@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>מתמטיקלף – תצוגת כיתה</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">×</div>
+        <div>
+          <h1>מתמטיקלף</h1>
+          <p class="subtitle">תצוגת כיתה (מורה)</p>
+        </div>
+      </div>
+      <button id="helpBtn" class="btn ghost">הוראות</button>
+    </header>
+
+    <main class="panel">
+      <section class="screen active">
+        <div class="card hero" style="max-width:980px;">
+          <div class="grid" style="grid-template-columns: 1fr 1fr 1fr;">
+            <label class="field">
+              <span>רמת קושי</span>
+              <select id="diff">
+                <option value="easy">קל (בלי צמצום)</option>
+                <option value="medium" selected>בינוני (צמצום עד 5)</option>
+                <option value="hard">מאתגר (צמצום עד 10)</option>
+              </select>
+            </label>
+
+            <div class="field">
+              <span>קוד חדר</span>
+              <div class="card" style="padding:10px 12px; border-radius:16px;">
+                <div id="roomCode" style="font-size:28px; font-weight:900; letter-spacing:2px;">----</div>
+                <div class="mini" id="roomHint">לחצי “צור חדר”</div>
+              </div>
+            </div>
+
+            <div class="field" style="justify-content:end;">
+              <span>&nbsp;</span>
+              <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                <button id="createRoomBtn" class="btn">צור חדר</button>
+                <button id="startBtn" class="btn primary" disabled>התחל משחק</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="board" style="margin-top:14px; grid-template-columns: 360px 1fr;">
+            <aside class="scoreboard">
+              <h3 style="margin:0 0 10px;">שחקנים</h3>
+              <div id="players"></div>
+
+              <div style="margin-top:12px;">
+                <h3 style="margin:0 0 10px;">היסטוריית שאלות</h3>
+                <ol id="history" class="rules" style="margin:0; padding-right:18px;"></ol>
+              </div>
+            </aside>
+
+            <section class="table">
+              <div class="hud">
+                <div class="roundBox">
+                  <span>סיבוב</span>
+                  <strong id="roundLabel">—</strong>
+                </div>
+                <div class="timerBox">
+                  <span>זמן</span>
+                  <strong id="timerLabel">—</strong>
+                </div>
+                <div class="roundBox">
+                  <span>מצב</span>
+                  <strong id="phaseLabel">—</strong>
+                </div>
+              </div>
+
+              <div class="deck">
+                <div class="card" style="width:min(720px,100%); padding:16px; border-radius:22px;">
+                  <div style="display:flex; gap:10px; justify-content:space-between; flex-wrap:wrap;">
+                    <span class="pill">כפל שברים</span>
+                    <span class="pill" id="turnLabel">ממתין…</span>
+                  </div>
+
+                  <div id="question" style="margin-top:10px; font-size:34px; font-weight:900;">
+                    יצירת חדר…
+                  </div>
+
+                  <div class="progress" style="margin-top:14px;">
+                    <div class="progress-bar" id="progressBar"></div>
+                  </div>
+
+                  <div id="toast" class="message" style="font-size:18px; margin-top:10px;"></div>
+                </div>
+
+                <div id="explainBox" class="explain hidden" style="max-width:720px;">
+                  <h3>קלף הסבר</h3>
+                  <p id="exp1"></p>
+                  <p id="exp2"></p>
+                  <p id="exp3"></p>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <p class="note" style="margin-top:12px;">
+            טלפונים נכנסים ל־<strong>/play</strong> ומקלידים קוד חדר ושם.
+          </p>
+        </div>
+      </section>
+
+      <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+        <div class="modal-box">
+          <div class="modal-head">
+            <h3>הוראות (מורה)</h3>
+            <button id="closeModal" class="btn ghost small">סגור</button>
+          </div>
+          <ol class="rules">
+            <li>לחצי “צור חדר” ובחרי רמה.</li>
+            <li>הקריני את המסך. התלמידים יכנסו מהטלפון ל־/play עם הקוד.</li>
+            <li>לחצי “התחל משחק”.</li>
+            <li>רק השחקן בתורו רואה תשובות בטלפון. אם טועה – 8 שניות גניבה לאחרים.</li>
+          </ol>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="display.js"></script>
+</body>
+</html>
