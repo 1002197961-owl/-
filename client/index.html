@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>מתמטיקלף</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">×</div>
+        <div>
+          <h1>מתמטיקלף</h1>
+          <p class="subtitle">משחק קלפים: כפל שברים</p>
+        </div>
+      </div>
+      <button id="helpBtn" class="btn ghost">הוראות</button>
+    </header>
+
+    <main class="panel">
+      <!-- מסך פתיחה -->
+      <section id="screenHome" class="screen active">
+        <div class="card hero">
+          <h2>ברוכים הבאים ל־מתמטיקלף</h2>
+          <p>בחרי מצב משחק (בגרסת GitHub Pages זה מצב “מכשיר אחד”).</p>
+
+          <div class="grid">
+            <label class="field">
+              <span>מספר שחקנים</span>
+              <select id="playersCount">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" selected>3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>רמת קושי</span>
+              <select id="difficulty">
+                <option value="easy">קל (בלי צמצום)</option>
+                <option value="medium" selected>בינוני (צמצום עד 5)</option>
+                <option value="hard">מאתגר (צמצום עד 10)</option>
+              </select>
+            </label>
+          </div>
+
+          <div id="namesWrap" class="names"></div>
+
+          <div class="actions">
+            <button id="startBtn" class="btn primary">שחק/י</button>
+            <button id="howBtn" class="btn">הוראות</button>
+          </div>
+
+          <p class="note">
+            מצב כיתה (מקרן + טלפונים כשלטים) נמצא בשרת המקומי (תיקיית server).
+          </p>
+        </div>
+      </section>
+
+      <!-- מסך משחק -->
+      <section id="screenGame" class="screen">
+        <div class="hud">
+          <div class="roundBox">
+            <span>סיבוב</span>
+            <strong id="roundLabel">1/7</strong>
+          </div>
+          <div class="timerBox">
+            <span>זמן</span>
+            <strong id="timerLabel">45</strong>
+          </div>
+          <div class="helpBox">
+            <button id="fiftyBtn" class="btn small">50/50</button>
+            <span id="fiftyInfo" class="mini"></span>
+          </div>
+        </div>
+
+        <div class="board">
+          <aside class="scoreboard" id="scoreboard"></aside>
+
+          <section class="table">
+            <div class="deck">
+              <div id="card" class="playing-card">
+                <div class="card-face card-back">
+                  <div class="pattern"></div>
+                  <div class="back-title">מתמטיקלף</div>
+                </div>
+                <div class="card-face card-front">
+                  <div class="card-top">
+                    <span class="pill">כפל שברים</span>
+                    <span class="pill" id="diffPill">בינוני</span>
+                  </div>
+                  <div class="q" id="questionText">2/3 × 3/4 = ?</div>
+                  <div class="answers" id="answers"></div>
+                </div>
+              </div>
+              <div class="progress">
+                <div class="progress-bar" id="progressBar"></div>
+              </div>
+            </div>
+
+            <div id="message" class="message"></div>
+
+            <div id="explain" class="explain hidden">
+              <h3>קלף הסבר</h3>
+              <p id="explainCorrect"></p>
+              <p id="explainShort"></p>
+              <p id="explainMistake"></p>
+              <button id="nextBtn" class="btn primary">המשך</button>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <!-- מסך סיום -->
+      <section id="screenEnd" class="screen">
+        <div class="card hero">
+          <h2>סיום המשחק 🎉</h2>
+          <p id="winnerText"></p>
+          <div class="actions">
+            <button id="restartBtn" class="btn primary">משחק חדש</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- מודאל הוראות -->
+      <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+        <div class="modal-box">
+          <div class="modal-head">
+            <h3>הוראות</h3>
+            <button id="closeModal" class="btn ghost small">סגור</button>
+          </div>
+          <ol class="rules">
+            <li>בכל משחק יש 7 סיבובים.</li>
+            <li>בכל תור נשלף קלף עם שאלה בכפל שברים (4 אפשרויות).</li>
+            <li>45 שניות לתשובה. אם הזמן נגמר — הקלף חוזר לתחתית החפיסה.</li>
+            <li>תשובה נכונה = קלף/נקודה. בסיבוב 7 תשובה נכונה = 2 נקודות.</li>
+            <li>לכל שחקן יש פעם אחת 50/50 (רק בתור שלו).</li>
+            <li>אם טעית — מופיע חלון “גניבה” (במצב כיתה; כאן משחק מכשיר אחד).</li>
+          </ol>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="local.js"></script>
+</body>
+</html>
