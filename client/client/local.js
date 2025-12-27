@@ -407,3 +407,6 @@ $("startBtn").onclick = ()=>{
   // שליפה ראשונה
   setTimeout(drawCard, 300);
 };
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./sw.js").catch(()=>{});
+}
