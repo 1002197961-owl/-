@@ -1,0 +1,10 @@
+{
+  "name": "מתמטיקלף",
+  "short_name": "מתמטיקלף",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b1411",
+  "theme_color": "#16a36b",
+  "lang": "he",
+  "dir": "rtl"
+}
